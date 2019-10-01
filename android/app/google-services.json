@@ -1,0 +1,167 @@
+{
+  "project_info": {
+    "project_number": "721522355523",
+    "firebase_url": "https://ssb-project-78e02.firebaseio.com",
+    "project_id": "ssb-project-78e02",
+    "storage_bucket": "ssb-project-78e02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721522355523:android:03180c7540db1ebd",
+        "android_client_info": {
+          "package_name": "com.project.ssb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "721522355523-4fh972jtdj38ek4glarhksb9cb5lnbd0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.ssb",
+            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+          }
+        },
+        {
+          "client_id": "721522355523-mik1l61lmagc7eggqk73m17midks8mie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt5sGCoQEMTXhMwC6C7lPLBFirbvMcg10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "721522355523-mik1l61lmagc7eggqk73m17midks8mie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721522355523:android:5c5891cd563884b2",
+        "android_client_info": {
+          "package_name": "com.shuttlestudentbus.ssb_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "721522355523-edrbtihb01g8uv7rmk5jti2ph4frk1bp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shuttlestudentbus.ssb_app",
+            "certificate_hash": "e3cb4b75cc5e743842f4fb1792743877e6e58b1d"
+          }
+        },
+        {
+          "client_id": "721522355523-5677e3dtur7el7nc2f35i1rke79qg7id.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shuttlestudentbus.ssb_app",
+            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+          }
+        },
+        {
+          "client_id": "721522355523-mik1l61lmagc7eggqk73m17midks8mie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt5sGCoQEMTXhMwC6C7lPLBFirbvMcg10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "721522355523-mik1l61lmagc7eggqk73m17midks8mie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721522355523:android:e3e88c24b95058894093f6",
+        "android_client_info": {
+          "package_name": "com.shuttlestudentbusproject.ssb_project_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "721522355523-mik1l61lmagc7eggqk73m17midks8mie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt5sGCoQEMTXhMwC6C7lPLBFirbvMcg10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "721522355523-mik1l61lmagc7eggqk73m17midks8mie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:721522355523:android:0caeead664c8ebcb4093f6",
+        "android_client_info": {
+          "package_name": "th.ac.up.se.shuttle_student_bus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "721522355523-082cov6deo6k1r9farrmip6fv0e5tamh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "th.ac.up.se.shuttle_student_bus",
+            "certificate_hash": "e3cb4b75cc5e743842f4fb1792743877e6e58b1d"
+          }
+        },
+        {
+          "client_id": "721522355523-ierhd6hbr2ajlq1d0p9k2u8vhqh4e1cg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "th.ac.up.se.shuttle_student_bus",
+            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+          }
+        },
+        {
+          "client_id": "721522355523-mik1l61lmagc7eggqk73m17midks8mie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt5sGCoQEMTXhMwC6C7lPLBFirbvMcg10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "721522355523-mik1l61lmagc7eggqk73m17midks8mie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
