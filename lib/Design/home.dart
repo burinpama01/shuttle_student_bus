@@ -36,6 +36,7 @@ class _homePage extends State<HomePage> implements AuthenticationDelegate {
         title: Text('Hello'),
       ),
       body: Center(
+        child: _state is Authenticated ? SizedBox(height: 50,width: 50,child: Image.network(_state.user.photoUrl),) : Container(),
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
