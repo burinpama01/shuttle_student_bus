@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       home: BlocProvider(
         builder: (BuildContext context) => AuthenticationBloc(),
         child: HomePage(),
+        //child: MyHomePage(),
       ),
     );
   }
