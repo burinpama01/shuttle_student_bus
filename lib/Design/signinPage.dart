@@ -1,69 +1,17 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shuttle_student_bus/Bloc/authentication/authentication_bloc.dart';
 
 
-class HomeRoute extends PageRoute<void> {
-  HomeRoute({
-    @required this.builder,
-    RouteSettings settings,
-  })  : assert(builder != null),
-        super(settings: settings, fullscreenDialog: false);
 
-  final WidgetBuilder builder;
 
-  @override
-  bool get opaque => false;
-
-  @override
-  Color get barrierColor => null;
-
-  @override
-  String get barrierLabel => null;
-
-  @override
-  bool get maintainState => true;
-
-  @override
-  Duration get transitionDuration => Duration(milliseconds: 300);
-
-  @override
-  Widget buildPage(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation) {
-    final result = builder(context);
-    //dialog = new ProgressDialog(context, ProgressDialogType.Normal);
-    //dialog.setMessage('กำลังโหลด...');
-
-    return SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(0, 1),
-        end: Offset.zero,
-      ).animate(animation),
-      child: Semantics(
-        scopesRoute: true,
-        explicitChildNodes: true,
-        child: result,
-      ),
-    );
-/*
-    return FadeTransition(
-      opacity: Tween<double>(begin: 0, end: 1).animate(animation),
-      child: Semantics(
-        scopesRoute: true,
-        explicitChildNodes: true,
-        child: result,
-      ),
-    );*/
-  }
+class RegisterPage extends StatefulWidget {
+  _registerPage createState() => new _registerPage();
 }
 
-
-class HomePage extends StatefulWidget {
-  _homePage createState() => new _homePage();
-}
-
-class _homePage extends State<HomePage> implements AuthenticationDelegate {
+class _registerPage extends State<RegisterPage>
+    implements AuthenticationDelegate {
   AuthenticationBloc _authenticationBloc;
 
   @override
@@ -89,13 +37,20 @@ class _homePage extends State<HomePage> implements AuthenticationDelegate {
   Widget _authenticationPage(AuthenticationState _state) {
     return Scaffold(
       body: Center(
-        child: _state is Authenticated
-            ? SizedBox(
-                height: 50,
-                width: 50,
-                child: Image.network(_state.user.photoUrl),
-              )
-            : Container(),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {},
+            child: Center(
+              child: Text("SIGNIN",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: "Poppins-Bold",
+                      fontSize: 18,
+                      letterSpacing: 1.0)),
+            ),
+          ),
+        ),
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -120,7 +75,7 @@ class _homePage extends State<HomePage> implements AuthenticationDelegate {
             child: Icon(Icons.exit_to_app),
           )
         ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ), // Th// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 

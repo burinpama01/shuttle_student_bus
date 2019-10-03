@@ -25,6 +25,8 @@ class LoggedOut extends AuthenticationEvent {
 }
 
 class GoogleLogin extends AuthenticationEvent {
+  BuildContext context ;
+  GoogleLogin(this.context);
   @override
   String toString() => 'GoogleLogin';
 }
