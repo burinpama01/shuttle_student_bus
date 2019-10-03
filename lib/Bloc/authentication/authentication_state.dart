@@ -11,19 +11,19 @@ class Uninitialized extends AuthenticationState {
   String toString() => 'Uninitialized';
 }
 
-class Authenticated extends AuthenticationState {
+class AuthenticatedState extends AuthenticationState {
 
   FirebaseUser user;
 
-  Authenticated(this.user);
+  AuthenticatedState(this.user);
 
   @override
-  String toString() => 'Authenticated';
+  String toString() => 'AuthenticatedState';
 }
 
-class Unauthenticated extends AuthenticationState {
+class UnauthenticatedState extends AuthenticationState {
   @override
-  String toString() => 'Unauthenticated';
+  String toString() => 'UnauthenticatedState';
 }
 
 class AuthenticatingState extends AuthenticationState {

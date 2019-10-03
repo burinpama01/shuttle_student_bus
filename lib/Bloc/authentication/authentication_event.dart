@@ -10,6 +10,9 @@ abstract class AuthenticationDelegate{
 }
 
 class AppStarted extends AuthenticationEvent {
+  BuildContext context ;
+  AppStarted(this.context);
+
   @override
   String toString() => 'AppStarted';
 }
@@ -22,6 +25,11 @@ class LoggedIn extends AuthenticationEvent {
 class LoggedOut extends AuthenticationEvent {
   @override
   String toString() => 'LoggedOut';
+}
+
+class EmailLogin extends AuthenticationEvent {
+  @override
+  String toString() => 'EmailLogin';
 }
 
 class GoogleLogin extends AuthenticationEvent {

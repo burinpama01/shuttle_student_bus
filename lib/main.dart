@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: BlocProvider(
         builder: (BuildContext context) => AuthenticationBloc(),
-        child: RegisterPage(),
+        child: SigninPage(),
         //child: MyHomePage(),
       ),
     );

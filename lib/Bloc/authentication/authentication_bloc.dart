@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
-import 'package:shuttle_student_bus/Design/home.dart';
-import 'package:shuttle_student_bus/Design/signinPage.dart';
+
 
 part 'authentication_event.dart';
 
@@ -29,7 +28,7 @@ class AuthenticationBloc
     if (event is GoogleLogin) {
       yield* _mapGoogleLoginToState(event);
     } else if (event is AppStarted) {
-      yield* _mapLoggedInToState();
+      yield* _mapLoggedInToState(event);
     } else if (event is LogOut) {
       yield* _mapLoggedOutToState();
     }
@@ -37,6 +36,21 @@ class AuthenticationBloc
 
   Stream<AuthenticationState> _mapAppStartedToState() async* {
     yield AuthenticatingState();
+    var firebase = await _firebaseAuth.currentUser().then((onValue){
+      print("TESTTTT");
+      if(onValue != null){
+        return onValue;
+      }else {
+        return null;
+      }
+    }).catchError((){
+      return null;
+    });
+    if (firebase != null) {
+      yield AuthenticatedState(firebase);
+    }  else {
+      yield UnauthenticatedState();
+    }
   }
 
   Stream<AuthenticationState> _mapGoogleLoginToState(GoogleLogin event) async* {
@@ -75,22 +89,18 @@ class AuthenticationBloc
       });
       if (user != null) {
         print("USER : ${user.displayName}");
-        yield Authenticated(user);
-        Navigator.push(
-          event.context,
-          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-        );
+        yield AuthenticatedState(user);
       } else {
-        print("Unauthenticated");
-        yield Unauthenticated();
+        print("UnauthenticatedState");
+        yield UnauthenticatedState();
       }
     } catch (error) {
       print("A4 : ${error.toString()}");
-      yield Unauthenticated();
+      yield UnauthenticatedState();
     }
   }
 
-  Stream<AuthenticationState> _mapLoggedInToState() async* {
+  Stream<AuthenticationState> _mapLoggedInToState(AuthenticationEvent event) async* {
     yield AuthenticatingState();
 
     try {
@@ -102,12 +112,12 @@ class AuthenticationBloc
       });
 
       if (firebaseUser != null) {
-        yield Authenticated(firebaseUser);
+        yield AuthenticatedState(firebaseUser);
       } else {
-        yield Unauthenticated();
+        yield UnauthenticatedState();
       }
     } catch (error) {
-      yield Unauthenticated();
+      yield UnauthenticatedState();
       print("error _mapAppStartedToState :${error.toString()}");
     }
   }
@@ -120,6 +130,6 @@ class AuthenticationBloc
     } catch (error) {
       print("_mapLoggedOutToState : ${error.toString()}");
     }
-    yield Unauthenticated();
+    yield UnauthenticatedState();
   }
 }
