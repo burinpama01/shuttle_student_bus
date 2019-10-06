@@ -1,15 +1,79 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shuttle_student_bus/Bloc/authentication/authentication_bloc.dart';
 
 class SigninPage extends StatefulWidget {
   _signinPage createState() => new _signinPage();
 }
 
-class _signinPage extends State<SigninPage>
-    implements AuthenticationDelegate {
+class _signinPage extends State<SigninPage> implements AuthenticationDelegate {
   AuthenticationBloc _authenticationBloc;
+
+  Completer<GoogleMapController> _controller = Completer();
+  static const LatLng _center = const LatLng(19.0272825, 99.9002384);
+  final Set<Marker> _marker = {};
+  LatLng _lastMapPosition = _center;
+  MapType _currentMapType = MapType.normal;
+
+  static final  CameraPosition _position = CameraPosition(
+    bearing: 192.833,
+    target: LatLng(19.0272825, 99.9002384),
+    tilt: 59.440,
+    zoom: 15.0,
+  );
+
+  Future<void> _goToPosition1() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_position));
+  }
+
+  _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
+
+  _onCameraMove(CameraPosition position) {
+    _lastMapPosition = position.target;
+  }
+
+  _onMapTypeButtonPressed() {
+    setState(() {
+      _currentMapType = _currentMapType == MapType.normal
+          ? MapType.satellite
+          : MapType.normal;
+    });
+  }
+
+  _onAddMarkerButtonPressed() {
+    setState(() {
+      _marker.add(
+        Marker(
+          markerId: MarkerId(_lastMapPosition.toString()),
+          position: _lastMapPosition,
+          infoWindow: InfoWindow(
+            title: 'Title Name',
+            snippet: 'Snippet Name'
+          ),
+          icon: BitmapDescriptor.defaultMarker,
+        ),
+      );
+    });
+  }
+
+  Widget button(Function function, IconData icon) {
+    return FloatingActionButton(
+      onPressed: function,
+      materialTapTargetSize: MaterialTapTargetSize.padded,
+      backgroundColor: Colors.blue,
+      child: Icon(
+        icon,
+        size: 36.0,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +105,11 @@ class _signinPage extends State<SigninPage>
   Widget _homePage(AuthenticationState _state) {
     return Scaffold(
       appBar: new AppBar(
-        title: new Text("Home Page"),
+        backgroundColor: Colors.orange,
+        title: new Text(
+          "Home Page",
+          style: TextStyle(color: Colors.white),
+        ),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.exit_to_app),
@@ -51,15 +119,106 @@ class _signinPage extends State<SigninPage>
               })
         ],
       ),
-      body: Center(
-        child: _state is AuthenticatedState
-            ? SizedBox(
-                height: 50,
-                width: 50,
-                child: Image.network(_state.user.photoUrl),
-              )
-            : Container(),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.grey,
+        currentIndex: 0,
+        items: [
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.home),
+            title: new Text(
+              'หน้าแรก',
+              style: TextStyle(fontFamily: 'SukhumvitSet', fontSize: 16),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.place),
+            title: new Text(
+              'แผนที่',
+              style: TextStyle(fontFamily: 'SukhumvitSet', fontSize: 16),
+            ),
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.assignment),
+              title: Text(
+                'สถานะ',
+                style: TextStyle(fontFamily: 'SukhumvitSet', fontSize: 16),
+              )),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.person),
+            title: new Text(
+              'บัญชี',
+              style: TextStyle(fontFamily: 'SukhumvitSet', fontSize: 16),
+            ),
+          ),
+        ],
+      ),
+      body: Stack(
+        children: <Widget>[
+          GoogleMap(
+            onMapCreated: _onMapCreated,
+            initialCameraPosition: CameraPosition(
+              target: _center,
+              zoom: 15.0,
+            ),
+            mapType: _currentMapType,
+            markers: _marker,
+            onCameraMove: _onCameraMove,
+          ),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Column(
+                children: <Widget>[
+                  button(_onMapTypeButtonPressed, Icons.map),
+                  SizedBox(
+                    height: 16.0,
+                  ),
+                  button(_onAddMarkerButtonPressed, Icons.add_location),
+                  SizedBox(
+                    height: 16.0,
+                  ),
+                  button(_goToPosition1, Icons.location_searching),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: _state is AuthenticatedState
+                  ? SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: Image.network(_state.user.photoUrl),
+                    )
+                  : Container(),
+              decoration: BoxDecoration(
+                color: Colors.orange[200],
+              ),
+            ),
+            ListTile(
+              title: Text('Item 1'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Item 2'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -97,14 +256,11 @@ class _signinPage extends State<SigninPage>
       child: Container(
         constraints: BoxConstraints.expand(height: 50),
         margin: EdgeInsets.only(top: 16),
-
         width: MediaQuery.of(context).size.width,
-
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16), color: Colors.red[200]),
         child: FlatButton(
             onPressed: () {
-              //handleSignIn(widget, context);
               _authenticationBloc.dispatch(GoogleLogin(_context));
             },
             child: Stack(
@@ -135,8 +291,6 @@ class _signinPage extends State<SigninPage>
         padding: EdgeInsets.all(12));
   }
 
-
-
   Container buildTextFieldEmail() {
     return Container(
         padding: EdgeInsets.all(12),
@@ -161,7 +315,7 @@ class _signinPage extends State<SigninPage>
 
   Widget _authenticatingPage() {
     return Container(
-      color: Colors.orange,
+      color: Colors.orange[200],
     );
   }
 
