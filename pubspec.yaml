@@ -21,8 +21,8 @@ dependencies:
 
   google_maps_flutter: ^0.5.21+7
 
-  location: ^1.4.1
-#  location: ^2.3.5
+ # location: ^1.4.1
+  location: ^2.3.5
 
   device_id: ^0.2.0
 

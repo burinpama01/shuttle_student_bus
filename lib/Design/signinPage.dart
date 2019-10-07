@@ -48,6 +48,8 @@ class _signinPage extends State<SigninPage> implements AuthenticationDelegate {
       _currentMapType = _currentMapType == MapType.normal
           ? MapType.satellite
           : MapType.normal;
+
+
     });
   }
 
@@ -171,13 +173,16 @@ class _signinPage extends State<SigninPage> implements AuthenticationDelegate {
             mapType: _currentMapType,
             markers: _marker,
             onCameraMove: _onCameraMove,
+            myLocationEnabled: true,
           ),
           Padding(
             padding: EdgeInsets.all(16.0),
             child: Align(
               alignment: Alignment.topRight,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
+
                   button(_onMapTypeButtonPressed, Icons.map),
                   SizedBox(
                     height: 16.0,
