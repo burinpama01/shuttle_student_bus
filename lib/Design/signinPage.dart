@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shuttle_student_bus/Design/mapPage.dart';
+import 'package:shuttle_student_bus/Design/statusPage.dart';
 
+import 'home.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -109,10 +112,19 @@ class _signinPage extends State<SigninPage> implements AuthenticationDelegate {
     );
   }
 
+  int _currentIndex = 0;
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+
   Widget _homePage(AuthenticationState _state) {
     return Scaffold(
       appBar: new AppBar(
-        backgroundColor: Colors.orange,
+        backgroundColor: Colors.orange[200],
         title: new Text(
           "Home Page",
           style: TextStyle(color: Colors.white),
@@ -131,15 +143,9 @@ class _signinPage extends State<SigninPage> implements AuthenticationDelegate {
         showUnselectedLabels: false,
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.grey,
-        currentIndex: 0,
+        currentIndex: _currentIndex,
+        onTap: onTabTapped,
         items: [
-          BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
-            title: new Text(
-              'หน้าแรก',
-              style: TextStyle(fontFamily: 'SukhumvitSet', fontSize: 16),
-            ),
-          ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.place),
             title: new Text(
@@ -148,6 +154,7 @@ class _signinPage extends State<SigninPage> implements AuthenticationDelegate {
             ),
           ),
           BottomNavigationBarItem(
+
               icon: Icon(Icons.assignment),
               title: Text(
                 'สถานะ',
@@ -223,10 +230,19 @@ class _signinPage extends State<SigninPage> implements AuthenticationDelegate {
             ListTile(
               title: Text('Item 2'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context,MaterialPageRoute(builder: (context) => MapsPage()),);
+              },
+            ),
+            ListTile(
+              trailing: Icon(Icons.exit_to_app),
+              title: Text('Log Out'),
+
+              onTap: () {
+                _authenticationBloc.dispatch(LogOut());
               },
             ),
           ],
+
         ),
       ),
     );
@@ -236,7 +252,7 @@ class _signinPage extends State<SigninPage> implements AuthenticationDelegate {
       BuildContext _context, AuthenticationState _state) {
     return Scaffold(
       body: Container(
-        color: Colors.orange[50],
+        color: Colors.green[50],
         child: Center(
           child: Container(
               decoration: BoxDecoration(
@@ -259,6 +275,8 @@ class _signinPage extends State<SigninPage> implements AuthenticationDelegate {
       ),
     );
   }
+
+
 
   Container buildButtonGoogleSignIn(
       BuildContext _context, AuthenticationState _state) {

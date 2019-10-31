@@ -19,6 +19,19 @@ class AuthenticationBloc
     scopes: ['email', 'https://www.googleapis.com/auth/contacts.readonly'],
   );
 
+  signIn(){
+    _firebaseAuth.signInWithEmailAndPassword().then((user) {
+      //print("signed in ${user.email}");
+      if(user != null){
+        return user;
+      }else {
+        return null;
+      }
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
   @override
   AuthenticationState get initialState => InitialAuthenticationState();
 
